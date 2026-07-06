@@ -7,7 +7,7 @@ export const defaultResumeData: ResumeData = {
     location: 'Mataram, Indonesia',
     email: 'ikbakfir@gmail.com',
     phone: '+62 87815509168',
-    portfolio: 'https://ikbakk.vercel.app',
+    portfolio: 'https://ikbak.vercel.app',
     github: 'https://github.com/ikbakk',
     linkedin: 'https://linkedin.com/in/ikbakk',
   },
