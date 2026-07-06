@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@myriaddreamin/typst-ts-renderer": "^0.7.0",
     "@myriaddreamin/typst.ts": "^0.7.0",
     "localforage": "^1.10.0",
     "react": "^19.0.0",
