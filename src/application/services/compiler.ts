@@ -1,28 +1,10 @@
-import { $typst } from '@myriaddreamin/typst.ts';
 import type { EditorStatus } from '../../domain/types';
 
 type StatusCallback = (status: EditorStatus, error?: string) => void;
 
-let initialized = false;
-
-export async function initTypst(): Promise<void> {
-  if (initialized) return;
-
-  $typst.setCompilerInitOptions({
-    getModule: () =>
-      'https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm',
-  });
-
-  $typst.setRendererInitOptions({
-    getModule: () =>
-      'https://cdn.jsdelivr.net/npm/@myriaddreamin/typst-ts-renderer/pkg/typst_ts_renderer_bg.wasm',
-  });
-
-  initialized = true;
-}
-
 /**
- * Compile Typst source to PDF bytes.
+ * Compile Typst source to PDF via the local dev server API
+ * which runs the system `typst` CLI.
  */
 export async function compileToPdf(
   source: string,
@@ -30,31 +12,27 @@ export async function compileToPdf(
 ): Promise<Uint8Array> {
   try {
     onStatus?.('compiling');
-    const data = await $typst.pdf({ mainContent: source });
+
+    const res = await fetch('/api/compile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source }),
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: res.statusText }));
+      throw new Error(err.error || `Server returned ${res.status}`);
+    }
+
+    const buf = await res.arrayBuffer();
+    const data = new Uint8Array(buf);
+
     if (!data || data.length === 0) {
       throw new Error('Compilation returned empty result');
     }
+
     onStatus?.('ready');
     return data;
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Unknown compilation error';
-    onStatus?.('error', message);
-    throw err;
-  }
-}
-
-/**
- * Compile Typst source to SVG for preview.
- */
-export async function compileToSvg(
-  source: string,
-  onStatus?: StatusCallback
-): Promise<string> {
-  try {
-    onStatus?.('compiling');
-    const svg = await $typst.svg({ mainContent: source });
-    onStatus?.('ready');
-    return svg;
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown compilation error';
     onStatus?.('error', message);

@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { Button } from '../atoms/Button';
 import { useResumeStore } from '../../application/store';
-import { initTypst, compileToPdf, compileToSvg } from '../../application/services/compiler';
+import { compileToPdf } from '../../application/services/compiler';
 import { assembleTypstSource } from '../../application/services/template-engine';
 import type { EditorStatus } from '../../domain/types';
 
@@ -37,15 +37,15 @@ export function PreviewPanel() {
   const customTemplate = useResumeStore((s) => s.customTemplate);
   const [status, setStatus] = useState<EditorStatus>('idle');
   const [error, setError] = useState<string | null>(null);
-  const [svgPreview, setSvgPreview] = useState<string | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const pdfRef = useRef<Uint8Array | null>(null);
 
   const handleGenerate = useCallback(async () => {
     try {
       setError(null);
-      setSvgPreview(null);
+      setPdfUrl(null);
+      pdfRef.current = null;
       setStatus('compiling');
-
-      await initTypst();
 
       const source = await assembleTypstSource(
         data,
@@ -53,12 +53,15 @@ export function PreviewPanel() {
         template === 'custom' ? customTemplate?.content : undefined
       );
 
-      // Compile to SVG for preview
-      const svg = await compileToSvg(source, setStatus);
-      setSvgPreview(svg);
-
-      // Compile to PDF for download
       const pdf = await compileToPdf(source, setStatus);
+
+      // Create blob URL for iframe preview
+      const blob = new Blob([pdf], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      setPdfUrl(url);
+      pdfRef.current = pdf;
+
+      // Auto-download
       const label = templateLabel(template, customTemplate?.name);
       const safeName = profile.name.replace(/\s+/g, '_');
       downloadPdf(pdf, `${safeName}_Resume_${label}.pdf`);
@@ -71,16 +74,31 @@ export function PreviewPanel() {
     }
   }, [data, template, profile.name, customTemplate]);
 
+  const handleDownload = () => {
+    if (!pdfRef.current) return;
+    const label = templateLabel(template, customTemplate?.name);
+    const safeName = profile.name.replace(/\s+/g, '_');
+    downloadPdf(pdfRef.current, `${safeName}_Resume_${label}.pdf`);
+  };
+
   const isLoading = status === 'compiling';
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold text-text-primary">Preview</h2>
-        <Button onClick={handleGenerate} loading={isLoading}>
-          <DownloadIcon />
-          {isLoading ? 'Generating...' : 'Generate PDF'}
-        </Button>
+        <div className="flex items-center gap-2">
+          {pdfUrl && (
+            <Button variant="secondary" size="sm" onClick={handleDownload}>
+              <DownloadIcon />
+              Download
+            </Button>
+          )}
+          <Button onClick={handleGenerate} loading={isLoading}>
+            <DownloadIcon />
+            {isLoading ? 'Generating...' : 'Generate PDF'}
+          </Button>
+        </div>
       </div>
 
       {error && (
@@ -89,12 +107,12 @@ export function PreviewPanel() {
         </div>
       )}
 
-      <div className="flex-1 overflow-auto rounded-lg border border-border bg-white">
-        {svgPreview ? (
-          <div
-            className="mx-auto"
-            style={{ maxWidth: '100%' }}
-            dangerouslySetInnerHTML={{ __html: svgPreview }}
+      <div className="flex-1 overflow-hidden rounded-lg border border-border bg-white">
+        {pdfUrl ? (
+          <iframe
+            src={pdfUrl}
+            className="h-[calc(100vh-120px)] w-full"
+            title="PDF Preview"
           />
         ) : (
           <div className="flex h-full min-h-[400px] items-center justify-center text-sm text-text-secondary">
