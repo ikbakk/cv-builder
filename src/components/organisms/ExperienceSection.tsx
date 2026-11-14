@@ -20,6 +20,7 @@ export function ExperienceSection() {
         </Button>
       </div>
       <div className="flex flex-col gap-2">
+        {experiences.length === 0 && <p className="text-sm text-text-secondary">No experience added yet. Use Add to start this section.</p>}
         {experiences.map((exp, i) => (
           <EntryCard
             key={i}

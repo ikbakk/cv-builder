@@ -1,6 +1,6 @@
 # CV Builder
 
-A browser-based resume builder that compiles your CV to PDF using **Typst** — entirely on your local machine. Edit your resume in a structured form, pick a template, and generate a professionally typeset PDF with one click.
+A browser-based resume builder with a dark landing page at `/` and a matching dark editor at `/editor`. It compiles your CV to PDF using **Typst** on your local machine. Edit your resume in a structured form, pick a template, and generate a professionally typeset PDF.
 
 > **No data leaves your device.** The Typst compiler runs locally via the system `typst` CLI. Everything stays in your browser and your machine.
 
@@ -9,7 +9,7 @@ A browser-based resume builder that compiles your CV to PDF using **Typst** — 
 ## Features
 
 - **Structured form editor** — profile, summary, experience, skills, education, and additional info
-- **Live PDF preview** — see the result instantly in an `<iframe>`
+- **PDF preview** — generate a PDF and review the result in an `<iframe>`
 - **Multiple templates** — ATS-friendly and Professional layouts included
 - **Custom templates** — upload your own `.typ` files
 - **Auto‑save** — all data persisted in IndexedDB (survives page refresh)
@@ -50,7 +50,7 @@ typst --version  # ≥ 0.12
 
 ```bash
 # Clone
-git clone https://github.com/ikbakk/cv-builder.git
+git clone https://github.com/OWNER/cv-builder.git
 cd cv-builder
 
 # Install dependencies
@@ -60,7 +60,7 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173** in your browser.
+Open **http://localhost:5173** for the landing page, then choose **Create my CV** to open the editor at **http://localhost:5173/editor**. You can also open `/editor` directly.
 
 ---
 
@@ -106,10 +106,16 @@ src/
 │   ├── molecules/       ← FormField, BulletList, EntryCard
 │   └── organisms/       ← ProfileSection, SummarySection, PreviewPanel, …
 ├── pages/
-│   └── EditorPage.tsx   ← Two‑panel layout (form + preview)
-├── App.tsx
+│   ├── LandingPage.tsx  ← Landing route at /
+│   └── EditorPage.tsx   ← Two‑panel editor at /editor
+├── App.tsx              ← Route selection
 ├── main.tsx
-└── index.css            ← Tailwind CSS + theme tokens
+├── index.css            ← Tailwind CSS + shared dark theme tokens
+└── landing.css          ← Scoped landing design system
+
+design/
+├── DESIGN.md            ← Selected landing design language
+└── directions.html      ← Three design examples
 
 public/
 └── templates/
@@ -127,8 +133,8 @@ vite.config.ts            ← Vite + /api/compile middleware (local typst CLI)
 ```
 ┌──────────────┐     POST /api/compile      ┌──────────────────┐
 │  React SPA   │  ────────────────────────▶  │  Vite Dev Server │
-│  (form +     │                              │  ┌────────────┐  │
-│   preview)   │  ◀────────────────────────   │  │ typst CLI  │  │
+│  / landing   │                              │  ┌────────────┐  │
+│  /editor app │  ◀────────────────────────   │  │ typst CLI  │  │
 └──────────────┘       PDF bytes             │  └────────────┘  │
                                               └──────────────────┘
        │                                               │
@@ -166,6 +172,8 @@ npm run preview  # Preview the production build locally
 ```
 
 Output goes to `dist/`.
+
+When hosting the build, serve `/` from `index.html` and rewrite `/editor` to the same file so direct editor links work. PDF generation also needs a local `/api/compile` endpoint backed by Typst; `npm run preview` checks the built UI but does not provide that endpoint.
 
 ---
 

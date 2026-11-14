@@ -102,12 +102,12 @@ export function PreviewPanel() {
       </div>
 
       {error && (
-        <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
+        <div className="rounded-md border border-[#874654] bg-[#3a2028] px-3 py-2 text-sm text-[#fecaca]">
           {error}
         </div>
       )}
 
-      <div className="flex-1 overflow-hidden rounded-lg border border-border bg-white">
+      <div className="flex-1 overflow-hidden rounded-lg border border-border bg-surface">
         {pdfUrl ? (
           <iframe
             src={pdfUrl}
@@ -125,7 +125,11 @@ export function PreviewPanel() {
                 Compiling...
               </div>
             ) : (
-              'Click "Generate PDF" to preview your resume'
+              <div className="flex max-w-xs flex-col items-center gap-3 px-5 text-center">
+                <svg className="h-10 w-10 text-accent" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h15l7 7v25H9V4Z" stroke="currentColor" strokeWidth="1.5"/><path d="M24 4v8h7M14 20h12M14 25h12M14 30h8" stroke="currentColor" strokeWidth="1.5"/></svg>
+                <p className="text-base font-medium text-text-primary">Your PDF will appear here</p>
+                <p>Enter your details, then choose Generate PDF to see the result.</p>
+              </div>
             )}
           </div>
         )}

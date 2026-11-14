@@ -34,9 +34,10 @@ export function SkillsSection() {
         </Button>
       </div>
       <div className="flex flex-col gap-2">
+        {skills.length === 0 && <p className="text-sm text-text-secondary">No skills added yet. Use Add to create a category.</p>}
         {skills.map((skill, i) => (
           <div key={i} className="flex items-start gap-2">
-            <div className="grid grid-cols-2 flex-1 gap-2">
+            <div className="grid grid-cols-1 flex-1 gap-2 sm:grid-cols-2">
               <Input
                 value={skill.category}
                 onChange={(e) => updateSkill(i, { category: e.target.value })}

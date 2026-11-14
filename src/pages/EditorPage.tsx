@@ -27,14 +27,15 @@ export function EditorPage() {
   }, [setData, setTemplate, setCustomTemplate]);
 
   return (
-    <div className="flex h-screen bg-surface text-text-primary">
+    <div className="flex min-h-screen flex-col bg-surface text-text-primary lg:h-screen lg:flex-row">
       {/* Left: Form Editor */}
-      <div className="flex w-[480px] min-w-[480px] flex-col overflow-hidden border-r border-border">
-        <header className="flex items-center justify-between border-b border-border px-4 py-3">
-          <h1 className="text-base font-semibold tracking-tight">CV Builder</h1>
+      <div className="editor-panel flex w-full flex-col border-b border-border lg:w-[480px] lg:min-w-[480px] lg:overflow-hidden lg:border-r lg:border-b-0">
+        <header className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3">
+          <h1 className="text-base font-semibold tracking-tight"><a href="/" className="hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" title="Back to landing page">CV Builder</a></h1>
+          <a href="#preview" className="text-sm font-medium text-accent underline underline-offset-4 lg:hidden">Go to preview</a>
           <TemplateSelector />
         </header>
-        <div className="flex-1 overflow-y-auto px-4 py-4">
+        <div className="px-4 py-4 lg:flex-1 lg:overflow-y-auto">
           <div className="flex flex-col gap-6">
             <ProfileSection />
             <SummarySection />
@@ -47,8 +48,8 @@ export function EditorPage() {
       </div>
 
       {/* Right: Preview */}
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <div className="flex-1 overflow-y-auto p-4">
+      <div id="preview" className="flex w-full flex-1 flex-col bg-surface-alt/40 lg:overflow-hidden">
+        <div className="flex-1 p-4 lg:overflow-y-auto">
           <PreviewPanel />
         </div>
       </div>

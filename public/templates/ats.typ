@@ -3,9 +3,9 @@
 #import "components.typ": *
 
 #set document(
-  title: "Muhammad Iqbal Firdaus ATS Resume",
-  author: "Muhammad Iqbal Firdaus",
-  keywords: ("Frontend Engineer", "Mobile Engineer", "React", "Next.js", "Astro", "Flutter", "TypeScript", "Technical SEO", "REST API", "BFF", "MQTT"),
+  title: "Resume",
+  author: "",
+  keywords: (),
 )
 
 #set page(

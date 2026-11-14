@@ -13,7 +13,7 @@ export function FormField({ label, required, error, children }: FormFieldProps) 
     <div className="flex flex-col gap-1.5">
       <Label required={required}>{label}</Label>
       {children}
-      {error && <span className="text-xs text-red-500">{error}</span>}
+      {error && <span className="text-xs text-[#fecaca]">{error}</span>}
     </div>
   );
 }

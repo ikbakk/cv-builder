@@ -1,14 +1,14 @@
 // professional.typ
 // Optional second template. Same data, slightly stronger visual hierarchy.
-// Compile with: typst compile professional.typ Muhammad_Iqbal_Firdaus_Professional_Resume.pdf
+// Compile with: typst compile professional.typ resume.pdf
 
 #import "data.typ": *
 #import "components.typ": *
 
 #set document(
-  title: "Muhammad Iqbal Firdaus Professional Resume",
-  author: "Muhammad Iqbal Firdaus",
-  keywords: ("Frontend Engineer", "Mobile Engineer", "React", "Next.js", "Astro", "Flutter", "TypeScript", "Technical SEO"),
+  title: "Resume",
+  author: "",
+  keywords: (),
 )
 
 #set page(

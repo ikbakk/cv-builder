@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV Builder — Landing Page Directions</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #e7e8e7; color: #202322; font: 16px/1.5 Arial, Helvetica, sans-serif; }
+    a { color: inherit; }
+    a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+    .lab { max-width: 1500px; margin: auto; padding: 48px 24px 80px; }
+    .lab-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 42px; }
+    .lab-head h1 { margin: 0; font-size: clamp(2.8rem, 6vw, 5.5rem); line-height: .95; letter-spacing: -.055em; max-width: 800px; }
+    .lab-head p { max-width: 350px; margin: 0; color: #555d59; }
+    .lab-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; }
+    .lab-nav a { border: 1px solid #b9bfbb; padding: 9px 15px; text-decoration: none; font-size: .88rem; font-weight: 700; }
+    .lab-nav a:hover { background: #fff; }
+    .entry { margin: 0 0 64px; }
+    .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-bottom: 13px; }
+    .entry-head h2 { margin: 0; font-size: 1.35rem; letter-spacing: -.03em; }
+    .entry-head p { margin: 0; color: #5e6762; text-align: right; }
+    .frame { overflow: hidden; box-shadow: 0 18px 45px #1c24221c; }
+    .site-nav { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 36px; }
+    .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -.055em; }
+    .site-nav .links { display: flex; gap: 26px; align-items: center; font-size: .8rem; font-weight: 700; }
+    .site-nav .links span { white-space: nowrap; }
+    .button { display: inline-flex; justify-content: center; align-items: center; min-height: 45px; padding: 0 20px; font-size: .83rem; font-weight: 800; white-space: nowrap; text-decoration: none; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 28px; padding: 60px 36px 70px; }
+    .hero-copy h3 { margin: 0 0 22px; font-size: clamp(3.1rem, 5.8vw, 6rem); line-height: .98; letter-spacing: -.055em; }
+    .hero-copy p { margin: 0 0 28px; max-width: 520px; font-size: 1.05rem; line-height: 1.6; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+    .text-link { font-size: .83rem; font-weight: 800; text-underline-offset: 4px; }
+    .concept-note { display: flex; flex-wrap: wrap; gap: 5px 26px; padding: 13px 2px 0; color: #5a615e; font-size: .87rem; }
+    .concept-note strong { color: #252b28; }
+    .sample { position: relative; min-width: 0; }
+    .sample-caption { font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; font-weight: 700; }
+    .resume { background: #fff; color: #242728; box-shadow: 0 16px 40px #10151530; }
+    .resume .name { font-weight: 800; letter-spacing: -.04em; }
+    .resume .role { font-size: .72rem; margin-top: 3px; }
+    .resume .rule { height: 1px; background: currentColor; opacity: .28; margin: 15px 0; }
+    .resume .section-label { font-size: .62rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .resume .job { font-size: .73rem; font-weight: 700; margin-top: 9px; }
+    .resume .detail { font-size: .65rem; opacity: .68; margin-top: 3px; }
+    .resume .line { height: 5px; background: currentColor; opacity: .12; margin-top: 9px; border-radius: 2px; }
+    .resume .line.short { width: 63%; }
+    .story { padding: 28px 36px 34px; }
+    .story h4 { font-size: 1.4rem; letter-spacing: -.035em; margin: 0 0 20px; }
+    .story-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .story-grid article { min-width: 0; padding: 20px; }
+    .story-grid strong { display: block; margin-bottom: 8px; }
+    .story-grid p { margin: 0; font-size: .87rem; line-height: 1.55; }
+
+    /* A: editorial paper and typographic confidence. */
+    .a { background: #f3efe7; color: #202623; font-family: Georgia, 'Times New Roman', serif; }
+    .a .site-nav { border-bottom: 1px solid #b9b6ad; }
+    .a .logo, .a .links, .a .button, .a .text-link, .a .sample-caption, .a .story { font-family: Arial, Helvetica, sans-serif; }
+    .a .button { background: #c94e37; color: #fff; }
+    .a .hero-copy h3 { font-weight: 400; letter-spacing: -.065em; }
+    .a .hero-copy h3 em { color: #b94732; font-style: italic; }
+    .a .hero-copy p { color: #505a54; }
+    .a .sample { min-height: 430px; padding: 28px 0 0 28px; }
+    .a .sample-caption { position: absolute; top: 0; left: 28px; color: #69716b; }
+    .a .resume { width: 69%; min-height: 370px; padding: 34px 32px; transform: rotate(-4deg); }
+    .a .resume .name { font: 2rem/1 Georgia, serif; }
+    .a .paper-back { position: absolute; right: 2%; top: 56px; width: 52%; min-height: 300px; padding: 24px; border: 1px solid #a7a79f; background: #e7ddcf; transform: rotate(6deg); }
+    .a .paper-back b { display: block; font: 700 .82rem Arial, sans-serif; }
+    .a .paper-back span { display: block; font: .7rem Arial, sans-serif; margin-top: 10px; }
+    .a .story { border-top: 1px solid #b9b6ad; }
+    .a .story-grid article { border-top: 3px solid #c94e37; background: #eae5db; }
+    .a .story-grid p { color: #58615b; }
+
+    /* B: precise studio canvas, closer to a creative tool. */
+    .b { background: #101d29; color: #e9f0f1; font-family: Arial, Helvetica, sans-serif; }
+    .b .site-nav { border-bottom: 1px solid #32414b; }
+    .b .logo:before { content: ''; display: inline-block; width: 13px; height: 13px; margin-right: 9px; background: #72e7ce; transform: rotate(45deg); }
+    .b .button { background: #72e7ce; color: #10252a; }
+    .b .hero-copy h3 { font-weight: 800; }
+    .b .hero-copy h3 span { color: #72e7ce; }
+    .b .hero-copy p { color: #b8c7cb; }
+    .b .sample { background: #1b2c39; border: 1px solid #3a505e; padding: 15px; box-shadow: 12px 16px 0 #0a151e; }
+    .b .sample-caption { color: #9bafb7; padding: 3px 4px 14px; font-family: monospace; }
+    .b .workspace { display: grid; grid-template-columns: 42% 58%; min-height: 325px; border: 1px solid #3e5260; }
+    .b .form { background: #213545; padding: 17px; }
+    .b .form .tab { color: #72e7ce; font: 700 .66rem monospace; padding-bottom: 12px; border-bottom: 1px solid #49606b; }
+    .b .field { margin-top: 17px; font: .68rem monospace; color: #9fb8c1; }
+    .b .field span { display: block; margin-top: 6px; padding: 10px 8px; border: 1px solid #536773; color: #e9f0f1; font: .74rem Arial, sans-serif; }
+    .b .preview { display: grid; place-items: center; background: #344754; padding: 17px; }
+    .b .resume { width: 90%; max-width: 210px; min-height: 270px; padding: 22px; }
+    .b .resume .name { font-size: 1.25rem; }
+    .b .story { border-top: 1px solid #32414b; }
+    .b .story-grid article { background: #1b2c39; border: 1px solid #3a505e; }
+    .b .story-grid strong { color: #72e7ce; }
+    .b .story-grid p { color: #b8c7cb; }
+
+    /* C: focused, warm and welcoming. */
+    .c { background: #f7f5f0; color: #262b3a; font-family: Arial, Helvetica, sans-serif; }
+    .c .site-nav { border-bottom: 1px solid #d4d1c9; }
+    .c .logo { color: #49406c; }
+    .c .button { background: #51457a; color: #fff; border-radius: 6px; }
+    .c .hero-copy h3 { font-size: clamp(3.2rem, 5.6vw, 5.6rem); }
+    .c .hero-copy h3 em { font-style: normal; color: #6659a0; }
+    .c .hero-copy p { color: #59606b; }
+    .c .sample { min-height: 405px; border-radius: 24px; background: #e6e0f2; padding: 30px; }
+    .c .sample-caption { color: #6e648c; margin-bottom: 20px; }
+    .c .resume { width: 64%; min-height: 300px; margin: 0 auto; padding: 30px 27px; border-radius: 3px; box-shadow: 0 16px 32px #50446e30; }
+    .c .resume .name { font-size: 1.55rem; }
+    .c .floating { position: absolute; left: 2%; bottom: 38px; padding: 13px 17px; background: #fff; border-radius: 8px; box-shadow: 0 8px 26px #50446e25; font-size: .73rem; font-weight: 700; }
+    .c .floating:before { content: '✓'; color: #328067; margin-right: 8px; }
+    .c .choice { position: absolute; right: 2%; top: 80px; padding: 12px 15px; background: #51457a; color: #fff; border-radius: 8px; font-size: .68rem; font-weight: 700; }
+    .c .story { border-top: 1px solid #d4d1c9; }
+    .c .story-grid article { background: #eeece6; border-radius: 10px; }
+    .c .story-grid strong { color: #51457a; }
+    .c .story-grid p { color: #59606b; }
+
+    @media (max-width: 820px) {
+      .lab { padding: 28px 14px 50px; }
+      .lab-head, .entry-head { display: block; }
+      .lab-head p { margin-top: 18px; }
+      .entry-head p { text-align: left; margin-top: 4px; }
+      .site-nav { padding: 18px 20px; }
+      .site-nav .links span { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 36px 20px 42px; }
+      .hero-copy h3, .c .hero-copy h3 { font-size: clamp(3.2rem, 11vw, 5rem); }
+      .sample { margin-top: 16px; }
+      .story { padding: 24px 20px 30px; }
+      .story-grid { grid-template-columns: 1fr; }
+      .story-grid article { min-height: 0; }
+    }
+    @media (max-width: 420px) {
+      .a .sample { min-height: 360px; padding-left: 6px; }
+      .a .resume { padding: 24px 18px; min-height: 320px; }
+      .a .resume .name { font-size: 1.55rem; }
+      .a .paper-back { right: 0; }
+      .b .sample { padding: 9px; }
+      .b .workspace { min-height: 280px; }
+      .b .form { padding: 10px; }
+      .b .field span { padding: 7px 5px; }
+      .b .preview { padding: 8px; }
+      .b .resume { padding: 14px; }
+      .b .resume .name { font-size: .95rem; }
+      .c .sample { padding: 22px 14px; }
+      .c .resume { width: 72%; padding: 22px 17px; }
+      .c .choice { display: none; }
+      .c .floating { left: 1%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="lab">
+    <header class="lab-head">
+      <h1>CV Builder<br>landing directions</h1>
+      <p>Original design studies for the entry page. Guided Start was selected and later adapted to a shared dark theme for the live landing page and editor.</p>
+    </header>
+    <nav class="lab-nav" aria-label="Design directions"><a href="#editorial">A · Editorial</a><a href="#studio">B · Studio</a><a href="#guided">C · Guided</a></nav>
+
+    <section class="entry" id="editorial" aria-labelledby="editorial-title">
+      <div class="entry-head"><h2 id="editorial-title">A · Editorial Paper</h2><p>Make the finished CV the hero, with publishing-inspired typography.</p></div>
+      <div class="frame a">
+        <div class="site-nav"><div class="logo">cvbuilder.</div><div class="links"><span>How it works</span><span>Templates</span><span class="button">Open the builder ↗</span></div></div>
+        <div class="hero"><div class="hero-copy"><h3>A better CV<br>starts with <em>clarity.</em></h3><p>Write in a simple editor. Choose a template. Export a beautifully typeset PDF from your own machine.</p><div class="actions"><span class="button">Open the builder ↗</span><span class="text-link">See the templates →</span></div></div>
+          <div class="sample" aria-label="Illustrative CV page and template sample"><span class="sample-caption">Your story, on the page</span><div class="paper-back"><b>PROFESSIONAL TEMPLATE</b><span>Careful spacing. Clear hierarchy. Ready to share.</span></div><div class="resume"><div class="name">Alex Morgan</div><div class="role">Product Designer · Jakarta</div><div class="rule"></div><div class="section-label">Experience</div><div class="job">Senior Product Designer</div><div class="detail">Studio North · 2022–Present</div><div class="line"></div><div class="line short"></div><div class="rule"></div><div class="section-label">Education</div><div class="job">Design, B.A.</div><div class="detail">Example University</div></div></div></div>
+        <div class="story"><h4>From details to document.</h4><div class="story-grid"><article><strong>Write once</strong><p>Fill in structured sections for experience, skills and education.</p></article><article><strong>Choose the look</strong><p>Switch between ATS-friendly and Professional templates.</p></article><article><strong>Export your PDF</strong><p>Compile a typeset CV locally with Typst.</p></article></div></div>
+      </div><div class="concept-note"><span><strong>Palette:</strong> warm paper, ink, vermilion</span><span><strong>Type:</strong> editorial serif + clear sans</span><span><strong>Strength:</strong> puts the output first</span></div>
+    </section>
+
+    <section class="entry" id="studio" aria-labelledby="studio-title">
+      <div class="entry-head"><h2 id="studio-title">B · Studio Canvas</h2><p>Show the editor and preview together as the product’s core promise.</p></div>
+      <div class="frame b">
+        <div class="site-nav"><div class="logo">CV Builder</div><div class="links"><span>Features</span><span>Templates</span><span class="button">Start building ↗</span></div></div>
+        <div class="hero"><div class="hero-copy"><h3>Write it.<br><span>See it.</span><br>Send it.</h3><p>Shape your resume in a structured editor and watch the PDF take form beside it. Your data stays on your device.</p><div class="actions"><span class="button">Start building ↗</span><span class="text-link">Explore the workflow →</span></div></div>
+          <div class="sample" aria-label="Illustrative editor and PDF preview"><div class="sample-caption">Editor / live preview / local export</div><div class="workspace"><div class="form"><div class="tab">01 / PROFILE</div><div class="field">FULL NAME<span>Alex Morgan</span></div><div class="field">HEADLINE<span>Product Designer</span></div><div class="field">LOCATION<span>Jakarta, Indonesia</span></div></div><div class="preview"><div class="resume"><div class="name">Alex Morgan</div><div class="role">Product Designer</div><div class="rule"></div><div class="section-label">Profile</div><div class="line"></div><div class="line short"></div><div class="rule"></div><div class="section-label">Experience</div><div class="job">Senior Product Designer</div><div class="detail">Studio North · 2022–Present</div><div class="line"></div></div></div></div></div></div>
+        <div class="story"><h4>Every step stays in view.</h4><div class="story-grid"><article><strong>Structured input</strong><p>Focused fields make each CV section easy to edit.</p></article><article><strong>Instant feedback</strong><p>Review the PDF while you work.</p></article><article><strong>Private by design</strong><p>Auto-save in your browser and compile locally.</p></article></div></div>
+      </div><div class="concept-note"><span><strong>Palette:</strong> midnight, slate, mint</span><span><strong>Type:</strong> bold sans + mono labels</span><span><strong>Strength:</strong> demonstrates the real interface</span></div>
+    </section>
+
+    <section class="entry" id="guided" aria-labelledby="guided-title">
+      <div class="entry-head"><h2 id="guided-title">C · Guided Start</h2><p>A calm, approachable entrance for people who just need to get started.</p></div>
+      <div class="frame c">
+        <div class="site-nav"><div class="logo">cvbuilder.</div><div class="links"><span>How it works</span><span>Templates</span><span class="button">Create my CV ↗</span></div></div>
+        <div class="hero"><div class="hero-copy"><h3>Your next CV,<br><em>without the fuss.</em></h3><p>Add your details once, choose a layout, and download a polished PDF. Everything stays on your machine.</p><div class="actions"><span class="button">Create my CV ↗</span><span class="text-link">Take a closer look →</span></div></div>
+          <div class="sample" aria-label="Illustrative resume preview with template labels"><div class="sample-caption">A clear result from the first draft</div><div class="choice">Professional template</div><div class="resume"><div class="name">Alex Morgan</div><div class="role">Product Designer · Jakarta</div><div class="rule"></div><div class="section-label">Summary</div><div class="line"></div><div class="line short"></div><div class="rule"></div><div class="section-label">Experience</div><div class="job">Senior Product Designer</div><div class="detail">Studio North · 2022–Present</div><div class="line"></div></div><div class="floating">Saved in your browser</div></div></div>
+        <div class="story"><h4>Three simple moves.</h4><div class="story-grid"><article><strong>Add your details</strong><p>Start with your profile, then build out experience and skills.</p></article><article><strong>Pick a template</strong><p>Choose Professional or ATS-friendly, or upload a Typst template.</p></article><article><strong>Download the result</strong><p>Generate a PDF ready to review and share.</p></article></div></div>
+      </div><div class="concept-note"><span><strong>Palette:</strong> soft ivory, lavender, aubergine</span><span><strong>Type:</strong> rounded modern sans</span><span><strong>Strength:</strong> lowers the barrier to starting</span></div>
+    </section>
+  </main>
+</body>
+</html>
